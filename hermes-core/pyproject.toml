@@ -1,0 +1,10 @@
+[project]
+name = "zswe-agent"
+version = "0.1.0"
+description = "A multi-agent system for automated software development with context engineering."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "typer[all]",
+    "google-generativeai",
+]
