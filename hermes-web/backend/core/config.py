@@ -37,6 +37,7 @@ security = HTTPBearer()
 CORS_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
+    "http://localhost:3002",
 ]
 
 # 上下文管理配置

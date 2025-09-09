@@ -9,7 +9,7 @@ from datetime import timedelta
 
 from core.config import get_db
 from core.models import User, UserCreate, UserLogin, Token
-from services.auth_service import auth_service, get_current_user
+from services.auth_service import auth_service, get_current_user, create_access_token
 from models import User as ORMUser
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
@@ -64,6 +64,13 @@ async def login_user(user_credentials: UserLogin, db: Session = Depends(get_db))
         data={"sub": user.username}, expires_delta=access_token_expires
     )
     
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@router.post("/refresh", response_model=Token)
+async def refresh_token(current_user: dict = Depends(get_current_user)):
+    """刷新访问令牌"""
+    # 创建新的访问令牌
+    access_token = create_access_token(data={"sub": current_user["username"]})
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/me", response_model=User)

@@ -16,6 +16,9 @@ from api.auth_routes import router as auth_router
 from api.tool_routes import router as tool_router
 from api.core_module_routes_v2 import router as core_module_router
 from api.training_routes import router as training_router
+from api.demo_routes import router as demo_router
+from api.external_agent_routes import router as external_agent_router
+from simple_auth import router as simple_auth_router
 
 # 设置日志
 setup_logging(
@@ -68,6 +71,9 @@ app.include_router(auth_router)
 app.include_router(tool_router)
 app.include_router(core_module_router)
 app.include_router(training_router)
+app.include_router(demo_router)
+app.include_router(external_agent_router)
+app.include_router(simple_auth_router)
 
 # 根路由
 @app.get("/")
@@ -108,4 +114,8 @@ async def health_check():
         )
 
 if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

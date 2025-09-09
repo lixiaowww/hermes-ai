@@ -40,7 +40,8 @@ class AuthService:
         if expires_delta:
             expire = datetime.utcnow() + expires_delta
         else:
-            expire = datetime.utcnow() + timedelta(minutes=15)
+            # 开发环境使用24小时，生产环境使用30分钟
+            expire = datetime.utcnow() + timedelta(hours=24)
         to_encode.update({"exp": expire})
         encoded_jwt = PyJWT.encode(to_encode, self.secret_key, algorithm=self.algorithm)
         return encoded_jwt
